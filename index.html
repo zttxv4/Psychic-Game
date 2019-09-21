@@ -6,7 +6,7 @@
 </head>
   <body>
     
-    <div class="container">
+    <div id="container">
       
         <h1>The Psychic Game</h1>
             <p>Guess what letter I'm thinking of</p>
@@ -21,14 +21,57 @@
 
     <script type="text/javascript">
 
-        var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"];
+        var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
         var wins = 0;
         var losses = 0;
         var guessesRem = 9;
         var guessed = [];
+        
+        document.onkeyup = function(event) {
+            
+            var myGuess = event.key;
+            var compGuess = letters[Math.floor(Math.random() * letters.length)];
+            var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+        
+            if (options.indexOf(myGuess) > -1) {
+                if (myGuess === compGuess) {
+                    wins++;
+                    guessesRem = 10;
+                    guessed = [];
+                    
+                }
+
+                if (myGuess != compGuess) {
+                    guessesRem--;
+                    guessed.push(myGuess);
+                 
+                }
+
+                if (guessesRem === 0) {
+                    losses++;
+                    guessed = [];
+                    guessesRem = 10;
+                }
+
+
+                var html = 
+                "<h1> The Psychic Game </h1>" +
+                "<p>Guess what letter I'm thinking of</p>" +
+                "<p>Wins: " + wins + "</p>" +
+                "<p>Losses: " + losses + "</p>" +
+                "<p>Guesses Left: " + guessesRem + "</p>" +
+                "<p>Your guesses so far: " + guessed.join(", ") + "</p>";
+
+                document.querySelector("#container").innerHTML = html;
+            }
+        
+        
+        
+        
+        };
     
-    
-    
+        
+        
     
     </script>
    
